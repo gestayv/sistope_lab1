@@ -75,12 +75,7 @@ int main(int argc, char *argv[])
 		return 1;	
 	}
 
-	printf("mflag = %d, hflag = %d, hvalue = %d\n",
-          mflag, hflag, hvalue);
-	
-	procesosHijos(hvalue);
-
-
+	procesosHijos(hvalue, mflag);
 
 	return 0;	
 }
