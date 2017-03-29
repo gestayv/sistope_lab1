@@ -44,12 +44,14 @@ int main(int argc, char *argv[])
 				{
 					fprintf(stderr, "Se debe indicar el número de hijos junto al parametro -%c.\n", optopt);
 				}
-				//	Si el argumento se puede imprimir, se indica que la opción no existe.
+				//	Si el argumento en el que se encontró el error se puede imprimir,
+				//	se indica que la opción no existe.
 				else if (isprint(optopt))
 				{
 					fprintf(stderr, "Opcion desconocida -%c.\n", optopt);
 				}
-				//	Si el argumento no se puede imprimir, se indica que la opción tiene un caracter desconocido.
+				//	Si el argumento en el que se encuentra el error no se puede imprimir, 
+				//	se indica que la opción tiene un caracter desconocido.
 				else
 				{
 					fprintf(stderr, "Opcion con caracter desconocido `\\x%x'.\n", optopt);
@@ -60,15 +62,23 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	//	Se verifica si se ingreso el parámetro "-h". Si no existe, termina la ejecución.
 	if(hflag == 0)
 	{
 		fprintf(stderr, "No se ingreso el parametro obligatorio '-h'. Terminando la ejecucion.\n");
 		return 1;
 	}
-
-
+	//	Se verifica si el número de hijos es positivo.
+	if(hvalue < 0)
+	{
+		fprintf(stderr, "Se ha ingresado un número negativo de hijos. Terminando la ejecucion.\n");
+		return 1;	
+	}
 
 	printf("mflag = %d, hflag = %d, hvalue = %d\n",
           mflag, hflag, hvalue);
+	
+	testProceso();
+
 	return 0;	
 }
