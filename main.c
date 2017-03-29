@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "No se ingreso el parametro obligatorio '-h'. Terminando la ejecucion.\n");
 		return 1;
 	}
-	//	Se verifica si el número de hijos es positivo.
+	//	Se verifica si el número de hijos es positivo. De no ser así, se termina la ejecución.
 	if(hvalue < 0)
 	{
 		fprintf(stderr, "Se ha ingresado un número negativo de hijos. Terminando la ejecucion.\n");
@@ -78,7 +78,9 @@ int main(int argc, char *argv[])
 	printf("mflag = %d, hflag = %d, hvalue = %d\n",
           mflag, hflag, hvalue);
 	
-	testProceso();
+	procesosHijos(hvalue);
+
+
 
 	return 0;	
 }

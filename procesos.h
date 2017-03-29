@@ -8,6 +8,6 @@
 #include <ctype.h>
 #include <string.h>
 
-void testProceso();
+void procesosHijos(int hijos);
 
 #endif
