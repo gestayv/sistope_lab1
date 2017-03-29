@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <ctype.h>
-#include <string.h>
+#include "procesos.h"
 
 int main(int argc, char *argv[])
 {
@@ -71,7 +66,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	
+
 
 	printf("mflag = %d, hflag = %d, hvalue = %d\n",
           mflag, hflag, hvalue);
