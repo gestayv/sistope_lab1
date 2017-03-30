@@ -51,6 +51,12 @@ int procesosHijos(int hijos, int muestraHijos)
 		}	
 	}
 
+	if(getpid() != pid_padre)
+	{
+		while(1);
+	}
+
+
 	envioSignal(arreglo, hijos);
 
 	return 0;
@@ -58,5 +64,11 @@ int procesosHijos(int hijos, int muestraHijos)
 
 void envioSignal(int **arregloHijos, int numHijos)
 {
-	/* :D */
+	int X = 0, Y = 0;
+	while(1)
+	{
+		printf("Ingresar numero de hijo y senal a enviar (X - Y):\n");
+		scanf("%d - %d", &X, &Y);
+		printf("%d - %d \n", X, Y);
+	}
 }

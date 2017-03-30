@@ -1,4 +1,4 @@
-#include "procesos.h"
+	#include "procesos.h"
 
 int main(int argc, char *argv[])
 {
@@ -76,6 +76,6 @@ int main(int argc, char *argv[])
 	}
 
 	procesosHijos(hvalue, mflag);
-
+	printf("Ingresar numero de hijo y señal a enviar (X - Y)\n");
 	return 0;	
 }

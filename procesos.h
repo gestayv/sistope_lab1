@@ -9,5 +9,6 @@
 #include <string.h>
 
 int procesosHijos(int hijos, int muestraHijos);
+void envioSignal(int **arregloHijos, int numHijos);
 
 #endif
