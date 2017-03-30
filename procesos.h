@@ -8,6 +8,6 @@
 #include <ctype.h>
 #include <string.h>
 
-void procesosHijos(int hijos);
+int procesosHijos(int hijos, int muestraHijos);
 
 #endif
