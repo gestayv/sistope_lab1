@@ -37,9 +37,7 @@ int procesosHijos(int hijos, int muestraHijos)
 		if(getpid() == pid_padre)
 		{
 			pid_hijo = fork();
-			arreglo[contador][0] = (int)pid_hijo;	
-			// Aquí agregar en una estructura de datos.
-			/*---*/
+			arreglo[contador][0] = (int)pid_hijo;
 		}
 		contador++;
 	}
@@ -52,6 +50,13 @@ int procesosHijos(int hijos, int muestraHijos)
 			printf("Numero: %d, pid: %d \n", i + 1, arreglo[i][0]);
 		}	
 	}
-	
+
+	envioSignal(arreglo, hijos);
+
 	return 0;
+}
+
+void envioSignal(int **arregloHijos, int numHijos)
+{
+	/* :D */
 }
