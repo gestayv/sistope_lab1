@@ -2,6 +2,12 @@
 
 int main(int argc, char *argv[])
 {
+	signal(16, userSignal);
+	signal(17, userSignal2);
+	signal(2, signalOverride);
+	
+
+
 	//	flag para el argumento "-m"
 	int mflag = 0;
 	//	flag para el argumento "-h"
@@ -76,6 +82,6 @@ int main(int argc, char *argv[])
 	}
 
 	procesosHijos(hvalue, mflag);
-	printf("Ingresar numero de hijo y señal a enviar (X - Y)\n");
+
 	return 0;	
 }
