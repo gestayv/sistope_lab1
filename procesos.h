@@ -10,7 +10,7 @@
 #include <string.h>
 
 int procesosHijos(int hijos, int muestraHijos);
-void envioSignal(int **arregloHijos, int numHijos);
+void envioSignal(int *arreglo, int numHijos);
 void userSignal(int signal);
 void userSignal2(int signal);
 void signalOverride(int signal);
