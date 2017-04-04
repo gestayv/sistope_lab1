@@ -1,5 +1,8 @@
+/*procesos.h: Header que contiene las cabeceras de las funciones y las bibliotecas a utilizar.*/
+
 #ifndef PROCESOS_H
 #define PROCESOS_H
+
 
 #include <sys/types.h>
 #include <unistd.h>

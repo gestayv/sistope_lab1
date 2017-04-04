@@ -2,7 +2,9 @@
 
 int main(int argc, char *argv[])
 {
-	signal(16, userSignal);
+	//Redifinicion de las funciones: Las señales SIGUSR1 SIGUSR2 y SIGINT seran manejadas por nuevas
+	//funciones, que estan definidas en el archivo procesos.c
+	signal(16, userSignal); 
 	signal(17, userSignal2);
 	signal(2, signalOverride);
 	
@@ -81,6 +83,7 @@ int main(int argc, char *argv[])
 		return 1;	
 	}
 
+	//Se realiza el llamado a la funcion procesosHijos.
 	procesosHijos(hvalue, mflag);
 
 	return 0;	
