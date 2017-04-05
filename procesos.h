@@ -15,8 +15,8 @@
 
 int procesosHijos(int hijos, int muestraHijos);
 void envioSignal(int *arreglo, int numHijos);
-void userSignal(int signal);
-void userSignal2(int signal);
-void signalOverride(int signal);
+void userSignal(int value);
+void userSignal2(int value);
+void signalOverride(int value);
 
 #endif

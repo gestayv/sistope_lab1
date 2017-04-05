@@ -4,11 +4,9 @@ int main(int argc, char *argv[])
 {
 	//Redifinicion de las funciones: Las señales SIGUSR1 SIGUSR2 y SIGINT seran manejadas por nuevas
 	//funciones, que estan definidas en el archivo procesos.c
-	signal(16, userSignal); 
-	signal(17, userSignal2);
-	signal(2, signalOverride);
-	
-
+	signal(SIGUSR1, userSignal); 
+	signal(SIGUSR2, userSignal2);
+	signal(SIGINT, signalOverride);
 
 	//	flag para el argumento "-m"
 	int mflag = 0;

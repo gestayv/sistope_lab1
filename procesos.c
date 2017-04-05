@@ -5,7 +5,6 @@
 #include "procesos.h"
 
 //Declaracion de variables globales.
-int *hijosG;			//
 int contadorSignal16;	//Contador que indica cuantas veces se llamo la señal 16 para cada hijo.
 int *pid_inicial;		//Entero que indica cual es el pid del padre de todos los procesos
 
@@ -27,11 +26,8 @@ int procesosHijos(int hijos, int muestraHijos)
 
 	int *arreglo;
 
-	hijosG = malloc(sizeof(int));
 	pid_inicial = malloc(sizeof(int));
-	//contadorSignal16 = malloc(sizeof(int));
-
-	*hijosG = hijos;	
+	
 	*pid_inicial = pid_padre;
 	contadorSignal16 = 0;
 	
@@ -44,16 +40,13 @@ int procesosHijos(int hijos, int muestraHijos)
 	}	
 
 	//Creacion de Hijos, el proceso padre crea tantos hijos como fueron indicados por terminal con el comando -h
-	while(contador < hijos)
+	for(contador = 0; contador < hijos; contador++)
 	{
-
 		if(getpid() == pid_padre)
 		{
-			pid_hijo = fork();
 			//Se agrega a arreglo el PID de cada hijo creado.
-			arreglo[contador] = (int)pid_hijo; 
+			arreglo[contador] = (int)fork();
 		}
-		contador++;
 	}
 
 	//Se dejan todos los procesos hijos esperando
@@ -61,8 +54,8 @@ int procesosHijos(int hijos, int muestraHijos)
 	{
 		while(1)
 		{
-			sleep(1);
-		}
+			pause();
+		};
 	}
 
 	//Si se recibio el comando "-m", se muestra el menu que tiene el PID de cada proceso hijo.
@@ -73,8 +66,6 @@ int procesosHijos(int hijos, int muestraHijos)
 			printf("Numero: %d, pid: %d \n", i + 1, arreglo[i]);
 		}	
 	}
-
-	
 
 	//Se llama al proceso envioSignal.
 	envioSignal(arreglo, hijos);
@@ -101,19 +92,26 @@ void envioSignal(int *arreglo, int numHijos)
 		{
 			printf("El hijo %d no existe. \n", hijo);
 		}
-		//En caso de ser un valor correcto
+		//En caso	 de ser un valor correcto
 		else
 		{	//Se encuentra el hijo correspondiente al dato ingresado por el usuario
 			pid_hijo = arreglo[hijo-1];
 			//Se avisa al usuario
 			printf("La senal %d sera enviada al hijo %d de pid %d \n", senal, hijo, pid_hijo);
 			//Se envia la señal, usando la funcion kill.
-			kill(pid_hijo, senal);
-			if(senal == 15)
+			switch(senal)
 			{
-				waitpid(pid_hijo, &status, WUNTRACED | WCONTINUED);		
+				case 15:
+					kill(pid_hijo, SIGTERM);
+					waitpid(pid_hijo, &status, 0);
+					break;
+				case 16:
+					kill(pid_hijo, SIGUSR1);
+					break;
+				case 17:
+					kill(pid_hijo, SIGUSR2);
+					break;
 			}
-			printf("PROCESO: %d \n", (int)getpid());
 		}
 	}
 }
@@ -136,7 +134,6 @@ void userSignal(int value)
 	Hace que un proceso determinado cree un hijo.*/
 void userSignal2(int value)
 {
-	pid_t pid_proceso = getpid();
 	//Se realiza fork para crear un hijo nuevo
 	pid_t pid_hijo = fork();
 }
@@ -155,5 +152,5 @@ void signalOverride(int value)
 		printf("<Soy el hijo con PID: %d y estoy vivo aun>\n", pid_proceso); 
 	}
 	//Setea la funcion default de SIGINT. Matar a todos los procesos.
-	signal(2, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 }
