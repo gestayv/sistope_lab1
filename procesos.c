@@ -55,8 +55,18 @@ int procesosHijos(int hijos, int muestraHijos)
 		}
 		contador++;
 	}
+
+	//Se dejan todos los procesos hijos esperando
+	if(getpid() != pid_padre)
+	{
+		while(1)
+		{
+			sleep(1);
+		}
+	}
+
 	//Si se recibio el comando "-m", se muestra el menu que tiene el PID de cada proceso hijo.
-	if(muestraHijos == 1 && getpid() == pid_padre)
+	if(muestraHijos == 1)
 	{
 		for(i = 0; i < hijos; i++)
 		{
@@ -64,10 +74,7 @@ int procesosHijos(int hijos, int muestraHijos)
 		}	
 	}
 
-	if(getpid() != pid_padre)
-	{
-		while(1);
-	}
+	
 
 	//Se llama al proceso envioSignal.
 	envioSignal(arreglo, hijos);
@@ -75,7 +82,7 @@ int procesosHijos(int hijos, int muestraHijos)
 	return 0;
 }
 
-/* Funcion envioSignal: Funcion que pregunta al usuario la señal y el proceso hijo que recibira tal señal.
+/* Funcion envioSignal: Procedimiento que pregunta al usuario la señal y el proceso hijo que recibira tal señal.
 						Utiliza la funcion 
 	Entrada: El arreglo que contiene los PID de los procesos Hijos
 			 El numero de hijos generados.
@@ -84,6 +91,7 @@ int procesosHijos(int hijos, int muestraHijos)
 void envioSignal(int *arreglo, int numHijos)
 {
 	int hijo = 0, senal = 0, pid_hijo = 0;
+	int status;
 	while(1)
 	{
 		//Se pregunta al usuario los datos requeridos.
@@ -101,7 +109,11 @@ void envioSignal(int *arreglo, int numHijos)
 			printf("La senal %d sera enviada al hijo %d de pid %d \n", senal, hijo, pid_hijo);
 			//Se envia la señal, usando la funcion kill.
 			kill(pid_hijo, senal);
-				
+			if(senal == 15)
+			{
+				waitpid(pid_hijo, &status, WUNTRACED | WCONTINUED);		
+			}
+			printf("PROCESO: %d \n", (int)getpid());
 		}
 	}
 }
@@ -128,6 +140,7 @@ void userSignal2(int value)
 	//Se realiza fork para crear un hijo nuevo
 	pid_t pid_hijo = fork();
 }
+
 /* Funcion signalOverride: Funcion que reemplaza a la señal 2 (SIGINT) o cuando se presiona Ctrl+C 
 	En primera instancia, procede a que todos los procesos hijos muestren un mensaje de estado
 	Ademas, vuelve a asignar la funcion original a la señal 2 (matar todos los procesos) para las siguientes
