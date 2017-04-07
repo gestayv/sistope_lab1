@@ -2,23 +2,23 @@
 
 int main(int argc, char *argv[])
 {
-	//Redifinicion de las funciones: Las señales SIGUSR1 SIGUSR2 y SIGINT seran manejadas por nuevas
-	//funciones, que estan definidas en el archivo procesos.c
+	//	Las señales SIGUSR1 SIGUSR2 y SIGINT seran manejadas por nuevas
+	//	funciones, que estan definidas en el archivo procesos.c
 	signal(SIGUSR1, userSignal); 
 	signal(SIGUSR2, userSignal2);
 	signal(SIGINT, signalOverride);
 
-	//	flag para el argumento "-m"
+	//	Flag para el argumento "-m"
 	int mflag = 0;
-	//	flag para el argumento "-h"
+	//	Flag para el argumento "-h"
 	int hflag = 0;
-	//	variable para guardar el número de hijos a ser creado
+	//	Variable para guardar el número de hijos a ser creado
 	int hvalue = 0;	
-
+	//	Variable que recibe el valor de retorno de getopt.
 	int c;
 
 	//	Se asigna el valor 0 a opterr, de manera que los errores mostrados por pantalla sean los programados
-	//	y no los que la función "getopt" muestra.
+	//	y no los que la función "getopt" muestra por defecto.
 	opterr = 0;
 
 	//	Se realiza un loop while para recorrer los argumentos entregados por terminal.
